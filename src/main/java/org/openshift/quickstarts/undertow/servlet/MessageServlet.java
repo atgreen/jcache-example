@@ -49,7 +49,7 @@ public class MessageServlet extends HttpServlet {
     private static final String APPLICATION_NAME = "caching-service";
     
     // Hot Rod endpoint is constructed using the following scheme: `application name`-hotrod.
-    private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service-hotrod";
+    private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service";
     
     // This should match the value specified for the APPLICATION_USER parameter when creating the caching-service
     private static final String USERNAME = "test";
