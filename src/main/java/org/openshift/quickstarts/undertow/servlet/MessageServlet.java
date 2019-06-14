@@ -46,9 +46,6 @@ public class MessageServlet extends HttpServlet {
     private String message;
     RemoteCache<String, String> cache;
 	
-    // This is where the openshift CRT file is located, DO NOT CHANGE
-    private static final String CRT_PATH = "/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt";
-    
     // This should match the value specified for the APPLICATION_NAME parameter when creating the caching-service
     private static final String APPLICATION_NAME = "caching-service";
     
@@ -87,8 +84,7 @@ public class MessageServlet extends HttpServlet {
 	    .saslMechanism("DIGEST-MD5")
 	    .saslQop(SaslQop.AUTH)
 	    .ssl().enable()
-	    .trustStoreFileName(TRUSTSTORE_PATH)
-	    .trustStorePassword(TRUSTSTORE_PASSWORD)
+	    .ssl().trustStorePath("/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt")
 	    .build();
 	
 	// When using topology and hash aware client (this is the default), the client
