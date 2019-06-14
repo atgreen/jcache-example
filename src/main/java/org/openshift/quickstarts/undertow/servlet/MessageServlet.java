@@ -50,7 +50,8 @@ public class MessageServlet extends HttpServlet {
         message = config.getInitParameter(MESSAGE);
 	
 	ConfigurationBuilder builder = new ConfigurationBuilder();
-	builder.addServer().host("cache-service").port(ConfigurationProperties.DEFAULT_HOTROD_PORT);
+	//	builder.addServer().host("cache-service").port(ConfigurationProperties.DEFAULT_HOTROD_PORT);
+	builder.addServer().host("cache-service").port(11222);
 	// Connect to the server
 	RemoteCacheManager cacheManager = new RemoteCacheManager(builder.build());
 	// Obtain the remote cache
