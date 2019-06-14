@@ -34,6 +34,7 @@ import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.infinispan.client.hotrod.impl.ConfigurationProperties;
 import org.infinispan.client.hotrod.configuration.Configuration;
+import org.infinispan.client.hotrod.configuration.SaslQop;
 
 /**
  * @author Stuart Douglas
@@ -66,13 +67,17 @@ public class MessageServlet extends HttpServlet {
 	    .addServer()
 	    .host(HOT_ROD_ENDPOINT_SERVICE)
 	    .port(11222)
+	    .security().authentication()
+	    .enable()
 	    .realm("ApplicationRealm")
-	    .security()
-	    .authentication().enable()
 	    .username(USERNAME)
 	    .password(PASSWORD)
 	    .serverName("caching-service")
-	    .ssl().trustStorePath("/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt")
+	    .saslMechanism("DIGEST-MD5")
+	    .saslQop(SaslQop.AUTH)
+	    .ssl()
+	    .enable()
+	    .trustStorePath("/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt")
 	    .build();
 	
 	// When using topology and hash aware client (this is the default), the client
