@@ -70,35 +70,33 @@ public class MessageServlet extends HttpServlet {
         super.init(config);
         message = config.getInitParameter(MESSAGE);
 	
-	public static void main(String... args) throws GeneralSecurityException, InterruptedException, IOException {
-	    
-	    TrustStore.createFromCrtFile(CRT_PATH, TRUSTSTORE_PATH, TRUSTSTORE_PASSWORD);
-	    
-	    Configuration c = new ConfigurationBuilder()
-		.addServer()
-                .host(HOT_ROD_ENDPOINT_SERVICE)
-                .port(11222)
-		.security()
-                .authentication().enable()
-		.username(USERNAME)
-		.password(PASSWORD)
-		.realm("ApplicationRealm")
-		.serverName("caching-service")
-		.saslMechanism("DIGEST-MD5")
-		.saslQop(SaslQop.AUTH)
-                .ssl().enable()
-		.trustStoreFileName(TRUSTSTORE_PATH)
-		.trustStorePassword(TRUSTSTORE_PASSWORD)
-		.build();
-	    
-	    // When using topology and hash aware client (this is the default), the client
-	    // obtains a list of cluster members during PING operation. Next, the client
-	    // initialized P2P connection to each cluster members to reach data
-	    // in a single network hop.
-	    RemoteCacheManager remoteCacheManager = new RemoteCacheManager(c);
-	    
-	    // Caching Service uses only one, default cache.
-	    RemoteCache<String, String> cache = remoteCacheManager.getCache();	
+	TrustStore.createFromCrtFile(CRT_PATH, TRUSTSTORE_PATH, TRUSTSTORE_PASSWORD);
+	
+	Configuration c = new ConfigurationBuilder()
+	    .addServer()
+	    .host(HOT_ROD_ENDPOINT_SERVICE)
+	    .port(11222)
+	    .security()
+	    .authentication().enable()
+	    .username(USERNAME)
+	    .password(PASSWORD)
+	    .realm("ApplicationRealm")
+	    .serverName("caching-service")
+	    .saslMechanism("DIGEST-MD5")
+	    .saslQop(SaslQop.AUTH)
+	    .ssl().enable()
+	    .trustStoreFileName(TRUSTSTORE_PATH)
+	    .trustStorePassword(TRUSTSTORE_PASSWORD)
+	    .build();
+	
+	// When using topology and hash aware client (this is the default), the client
+	// obtains a list of cluster members during PING operation. Next, the client
+	// initialized P2P connection to each cluster members to reach data
+	// in a single network hop.
+	RemoteCacheManager remoteCacheManager = new RemoteCacheManager(c);
+	
+	// Caching Service uses only one, default cache.
+	RemoteCache<String, String> cache = remoteCacheManager.getCache();	
     }
 
     @Override
