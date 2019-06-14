@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ JBoss, Home of Professional Open Source.
-  ~ Copyright 2012 Red Hat, Inc., and individual contributors
+  ~ Copyright 2012, 2019 Red Hat, Inc., and individual contributors
   ~ as indicated by the @author tags.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,6 +57,12 @@
             <version>${version.jboss.logmanager}</version>
         </dependency>
 
+	<dependency>
+  	    <groupId>org.infinispan</groupId>
+	    <artifactId>infinispan-remote</artifactId>
+	    <version>9.1.0.Final</version>
+	</dependency>
+	
     </dependencies>
 
     <profiles>
