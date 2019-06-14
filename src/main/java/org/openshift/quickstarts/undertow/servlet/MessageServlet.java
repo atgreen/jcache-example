@@ -32,7 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
-
+import org.infinispan.client.hotrod.impl.ConfigurationProperties;
+    
 /**
  * @author Stuart Douglas
  */
