@@ -69,7 +69,7 @@ public class MessageServlet extends HttpServlet {
 	    .port(11222)
 	    .security().authentication()
 	    .enable()
-	    .realm("ApplicationRealm")
+	    .realm("jdg-openshift")
 	    .username(USERNAME)
 	    .password(PASSWORD)
 	    .serverName("caching-service")
