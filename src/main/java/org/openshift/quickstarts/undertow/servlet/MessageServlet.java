@@ -67,7 +67,7 @@ public class MessageServlet extends HttpServlet {
     public void init(final ServletConfig config) throws ServletException {
         super.init(config);
         message = config.getInitParameter(MESSAGE);
-	
+
 	Configuration c = new ConfigurationBuilder()
 	    .addServer()
 	    .host(HOT_ROD_ENDPOINT_SERVICE)
@@ -76,10 +76,7 @@ public class MessageServlet extends HttpServlet {
 	    .authentication().enable()
 	    .username(USERNAME)
 	    .password(PASSWORD)
-	    .realm("ApplicationRealm")
 	    .serverName("caching-service")
-	    .saslMechanism("DIGEST-MD5")
-	    .ssl().enable()
 	    .ssl().trustStorePath("/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt")
 	    .build();
 	
