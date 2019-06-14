@@ -52,10 +52,10 @@ public class MessageServlet extends HttpServlet {
     private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service";
     
     // This should match the value specified for the APPLICATION_USER parameter when creating the caching-service
-    private static final String USERNAME = "test";
+    private static final String USERNAME = "admin";
     
     // This should match the value specified for the APPLICATION_USER_PASSWORD parameter when creating the caching-service
-    private static final String PASSWORD = "test";
+    private static final String PASSWORD = "Redhat1!";
     
     // This is the password for the trustore which will be created
     private static final char[] TRUSTSTORE_PASSWORD = "secret".toCharArray();
