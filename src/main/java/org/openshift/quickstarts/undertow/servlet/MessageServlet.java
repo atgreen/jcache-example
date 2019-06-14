@@ -57,12 +57,6 @@ public class MessageServlet extends HttpServlet {
     // This should match the value specified for the APPLICATION_USER_PASSWORD parameter when creating the caching-service
     private static final String PASSWORD = "Redhat1!";
     
-    // This is the password for the trustore which will be created
-    private static final char[] TRUSTSTORE_PASSWORD = "secret".toCharArray();
-    
-    // This is the path of the generated truststore, here we simply use the home dir on the deployed openshift pod
-    private static final String TRUSTSTORE_PATH = "truststore.pkcs12";
-
     @Override
     public void init(final ServletConfig config) throws ServletException {
         super.init(config);
