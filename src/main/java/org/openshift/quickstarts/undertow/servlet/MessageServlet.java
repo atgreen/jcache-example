@@ -43,23 +43,62 @@ public class MessageServlet extends HttpServlet {
 
     private String message;
     RemoteCache<String, String> cache;
+	
+    // This is where the openshift CRT file is located, DO NOT CHANGE
+    private static final String CRT_PATH = "/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt";
+    
+    // This should match the value specified for the APPLICATION_NAME parameter when creating the caching-service
+    private static final String APPLICATION_NAME = "caching-service";
+    
+    // Hot Rod endpoint is constructed using the following scheme: `application name`-hotrod.
+    private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service-hotrod";
+    
+    // This should match the value specified for the APPLICATION_USER parameter when creating the caching-service
+    private static final String USERNAME = "test";
+    
+    // This should match the value specified for the APPLICATION_USER_PASSWORD parameter when creating the caching-service
+    private static final String PASSWORD = "test";
+    
+    // This is the password for the trustore which will be created
+    private static final char[] TRUSTSTORE_PASSWORD = "secret".toCharArray();
+    
+    // This is the path of the generated truststore, here we simply use the home dir on the deployed openshift pod
+    private static final String TRUSTSTORE_PATH = "truststore.pkcs12";
 
     @Override
     public void init(final ServletConfig config) throws ServletException {
         super.init(config);
         message = config.getInitParameter(MESSAGE);
 	
-	ConfigurationBuilder builder = new ConfigurationBuilder();
-	//	builder.addServer().host("cache-service").port(ConfigurationProperties.DEFAULT_HOTROD_PORT);
-	builder.addServer().host("cache-service").port(11222);
-	// Connect to the server
-	RemoteCacheManager cacheManager = new RemoteCacheManager(builder.build());
-	// Obtain the remote cache
-	cache = cacheManager.getCache();
-	/// Store a value
-	cache.put("key", "value");
-	// Retrieve the value and print it out
-	System.out.printf("key = %s\n", cache.get("key"));
+	public static void main(String... args) throws GeneralSecurityException, InterruptedException, IOException {
+	    
+	    TrustStore.createFromCrtFile(CRT_PATH, TRUSTSTORE_PATH, TRUSTSTORE_PASSWORD);
+	    
+	    Configuration c = new ConfigurationBuilder()
+		.addServer()
+                .host(HOT_ROD_ENDPOINT_SERVICE)
+                .port(11222)
+		.security()
+                .authentication().enable()
+		.username(USERNAME)
+		.password(PASSWORD)
+		.realm("ApplicationRealm")
+		.serverName("caching-service")
+		.saslMechanism("DIGEST-MD5")
+		.saslQop(SaslQop.AUTH)
+                .ssl().enable()
+		.trustStoreFileName(TRUSTSTORE_PATH)
+		.trustStorePassword(TRUSTSTORE_PASSWORD)
+		.build();
+	    
+	    // When using topology and hash aware client (this is the default), the client
+	    // obtains a list of cluster members during PING operation. Next, the client
+	    // initialized P2P connection to each cluster members to reach data
+	    // in a single network hop.
+	    RemoteCacheManager remoteCacheManager = new RemoteCacheManager(c);
+	    
+	    // Caching Service uses only one, default cache.
+	    RemoteCache<String, String> cache = remoteCacheManager.getCache();	
     }
 
     @Override
