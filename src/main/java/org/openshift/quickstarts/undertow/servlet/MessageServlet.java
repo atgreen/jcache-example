@@ -37,11 +37,23 @@ public class MessageServlet extends HttpServlet {
     public static final String MESSAGE = "message";
 
     private String message;
+    RemoteCache<String, String> cache;
 
     @Override
     public void init(final ServletConfig config) throws ServletException {
         super.init(config);
         message = config.getInitParameter(MESSAGE);
+	
+	ConfigurationBuilder builder = new ConfigurationBuilder();
+	builder.addServer().host("cache-service").port(ConfigurationProperties.DEFAULT_HOTROD_PORT);
+	// Connect to the server
+	RemoteCacheManager cacheManager = new RemoteCacheManager(builder.build());
+	// Obtain the remote cache
+	cache = cacheManager.getCache();
+	/// Store a value
+	cache.put("key", "value");
+	// Retrieve the value and print it out
+	System.out.printf("key = %s\n", cache.get("key"));
     }
 
     @Override
