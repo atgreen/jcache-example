@@ -34,7 +34,6 @@ import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.infinispan.client.hotrod.impl.ConfigurationProperties;
 import org.infinispan.client.hotrod.configuration.Configuration;
-import org.infinispan.client.hotrod.configuration.SaslQop;
 
 /**
  * @author Stuart Douglas
@@ -80,7 +79,6 @@ public class MessageServlet extends HttpServlet {
 	    .realm("ApplicationRealm")
 	    .serverName("caching-service")
 	    .saslMechanism("DIGEST-MD5")
-	    .saslQop(SaslQop.AUTH)
 	    .ssl().enable()
 	    .ssl().trustStorePath("/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt")
 	    .build();
