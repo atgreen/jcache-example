@@ -21,7 +21,7 @@ package org.openshift.quickstarts.undertow.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import java.util.Enumeration;
+import java.util.*;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
