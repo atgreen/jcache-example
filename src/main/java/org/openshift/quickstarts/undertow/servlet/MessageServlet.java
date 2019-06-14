@@ -66,6 +66,7 @@ public class MessageServlet extends HttpServlet {
 	    .addServer()
 	    .host(HOT_ROD_ENDPOINT_SERVICE)
 	    .port(11222)
+	    .realm("hotrod")
 	    .security()
 	    .authentication().enable()
 	    .username(USERNAME)
