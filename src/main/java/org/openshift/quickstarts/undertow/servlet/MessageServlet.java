@@ -47,17 +47,17 @@ public class MessageServlet extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
-        writer.write(message);
+        writer.write(message + "\n");
 	writer.write(req.getMethod());
 	Enumeration<String> headerNames = req.getHeaderNames();
 	while(headerNames.hasMoreElements()) {
 	    String headerName = headerNames.nextElement();
-	    writer.write("Header Name - " + headerName + ", Value - " + req.getHeader(headerName));
+	    writer.write("Header Name - " + headerName + ", Value - " + req.getHeader(headerName) + "\n");
 	}
 	Enumeration<String> params = req.getParameterNames(); 
 	while(params.hasMoreElements()){
 	    String paramName = params.nextElement();
-	    writer.write("Parameter Name - "+paramName+", Value - "+req.getParameter(paramName));
+	    writer.write("Parameter Name - "+paramName+", Value - "+req.getParameter(paramName)+"\n");
 	}        
 	writer.close();
     }
