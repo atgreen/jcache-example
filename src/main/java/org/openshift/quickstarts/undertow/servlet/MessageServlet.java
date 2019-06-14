@@ -69,8 +69,6 @@ public class MessageServlet extends HttpServlet {
         super.init(config);
         message = config.getInitParameter(MESSAGE);
 	
-	TrustStore.createFromCrtFile(CRT_PATH, TRUSTSTORE_PATH, TRUSTSTORE_PASSWORD);
-	
 	Configuration c = new ConfigurationBuilder()
 	    .addServer()
 	    .host(HOT_ROD_ENDPOINT_SERVICE)
