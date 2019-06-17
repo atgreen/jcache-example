@@ -45,17 +45,10 @@ public class MessageServlet extends HttpServlet {
 
     private String message;
     RemoteCache<String, String> cache;
+    RemoteCacheManager remoteCacheManager;
 	
-    // This should match the value specified for the APPLICATION_NAME parameter when creating the caching-service
-    private static final String APPLICATION_NAME = "caching-service";
-    
-    // Hot Rod endpoint is constructed using the following scheme: `application name`-hotrod.
     private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service";
-    
-    // This should match the value specified for the APPLICATION_USER parameter when creating the caching-service
     private static final String USERNAME = "admin";
-    
-    // This should match the value specified for the APPLICATION_USER_PASSWORD parameter when creating the caching-service
     private static final String PASSWORD = "Redhat1!";
     
     @Override
@@ -78,14 +71,8 @@ public class MessageServlet extends HttpServlet {
 	    .trustStorePath("/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt")
 	    .build();
 	
-	// When using topology and hash aware client (this is the default), the client
-	// obtains a list of cluster members during PING operation. Next, the client
-	// initialized P2P connection to each cluster members to reach data
-	// in a single network hop.
-	RemoteCacheManager remoteCacheManager = new RemoteCacheManager(c);
-	
-	// Caching Service uses only one, default cache.
-	RemoteCache<String, String> cache = remoteCacheManager.getCache();	
+	remoteCacheManager = new RemoteCacheManager(c);
+	cache = remoteCacheManager.getCache();	
     }
 
     @Override
