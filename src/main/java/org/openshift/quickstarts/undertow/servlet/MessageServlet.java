@@ -89,9 +89,16 @@ public class MessageServlet extends HttpServlet {
 	Enumeration<String> params = req.getParameterNames(); 
 	while(params.hasMoreElements()){
 	    String paramName = params.nextElement();
-	    writer.write("Parameter Name - "+paramName+", Value - "+req.getParameter(paramName)+"\n");
+	    //	    writer.write("Parameter Name - "+paramName+", Value - "+req.getParameter(paramName)+"\n");
 	    cache.put(paramName, req.getParameter(paramName));
 	}        
+	
+        Iterator iterator = cache.iterator();
+	while(iterator.hasNext()) {
+	    Entry entry = iterator.next();
+	    writer.write(entry.getKey() + ":" + entry.getValue());
+	}
+
 	writer.close();
     }
 
