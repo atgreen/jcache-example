@@ -29,12 +29,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.infinispan.client.hotrod.RemoteCache;
+import javax.cache.Cache;
+
+// import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
-import org.infinispan.client.hotrod.impl.ConfigurationProperties;
-import org.infinispan.client.hotrod.configuration.Configuration;
-import org.infinispan.client.hotrod.configuration.SaslQop;
 
 /**
  * @author Stuart Douglas
@@ -44,7 +43,8 @@ public class MessageServlet extends HttpServlet {
     public static final String MESSAGE = "message";
 
     private String message;
-    RemoteCache<String, String> cache;
+    //    RemoteCache<String, String> cache;
+    Cache cache;
     RemoteCacheManager remoteCacheManager;
 	
     private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service";
