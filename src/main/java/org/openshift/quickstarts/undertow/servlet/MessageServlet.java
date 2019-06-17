@@ -31,11 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.cache.*;
 
-import org.infinispan.client.hotrod.RemoteCache;
-import org.infinispan.client.hotrod.RemoteCacheManager;
-import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
-import org.infinispan.client.hotrod.configuration.Configuration;
-
 /**
  * @author Stuart Douglas
  */
@@ -44,9 +39,7 @@ public class MessageServlet extends HttpServlet {
     public static final String MESSAGE = "message";
 
     private String message;
-    //    RemoteCache<String, String> cache;
     Cache<String, String> cache;
-    javax.cache.CacheManager remoteCacheManager;
 	
     private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service";
     private static final String USERNAME = "admin";
@@ -57,23 +50,12 @@ public class MessageServlet extends HttpServlet {
         super.init(config);
         message = config.getInitParameter(MESSAGE);
 
-	Configuration c = new ConfigurationBuilder()
-	    .addServer()
-	    .host(HOT_ROD_ENDPOINT_SERVICE)
-	    .port(11222)
-	    .security().authentication()
-	    .enable()
-	    .realm("ApplicationRealm")
-	    .username(USERNAME)
-	    .password(PASSWORD)
-	    .serverName("cache-service")
-	    .ssl()
-	    .enable()
-	    .trustStorePath("/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt")
-	    .build();
-	
-	remoteCacheManager = new RemoteCacheManager(c);
-	cache = remoteCacheManager.getCache();	
+	CachingProvider cachingProvider = Caching.getCachingProvider();
+	CacheManager cacheManager = cachingProvider.getCacheManager();
+	MutableConfiguration<String, String> config
+	    = new MutableConfiguration<>();
+	cache = cacheManager
+	    .createCache("default", config);
     }
 
     @Override
