@@ -79,7 +79,7 @@ public class MessageServlet extends HttpServlet {
 	
         Iterator iterator = cache.iterator();
 	while(iterator.hasNext()) {
-	    Entry entry = iterator.next();
+	    Map.Entry<String, String> entry = iterator.next();
 	    writer.write(entry.getKey() + ":" + entry.getValue());
 	}
 
