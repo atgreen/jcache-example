@@ -43,10 +43,6 @@ public class MessageServlet extends HttpServlet {
     private String message;
     Cache<String, String> cache;
 	
-    private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service";
-    private static final String USERNAME = "admin";
-    private static final String PASSWORD = "Redhat1!";
-    
     @Override
     public void init(final ServletConfig config) throws ServletException {
         super.init(config);
