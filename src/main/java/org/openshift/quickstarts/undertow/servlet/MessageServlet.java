@@ -64,23 +64,17 @@ public class MessageServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
         writer.write(message + "\n");
-	writer.write(req.getMethod());
-	Enumeration<String> headerNames = req.getHeaderNames();
-	while(headerNames.hasMoreElements()) {
-	    String headerName = headerNames.nextElement();
-	    writer.write("Header Name - " + headerName + ", Value - " + req.getHeader(headerName) + "\n");
-	}
+	
 	Enumeration<String> params = req.getParameterNames(); 
 	while(params.hasMoreElements()){
 	    String paramName = params.nextElement();
-	    //	    writer.write("Parameter Name - "+paramName+", Value - "+req.getParameter(paramName)+"\n");
 	    cache.put(paramName, req.getParameter(paramName));
 	}        
 	
 	Iterator<Cache.Entry<String, String>> iterator = cache.iterator();
 	while(iterator.hasNext()) {
 	    Cache.Entry<String, String> entry = iterator.next();
-	    writer.write(entry.getKey() + ":" + entry.getValue());
+	    writer.write(entry.getKey() + ":" + entry.getValue() + "\n");
 	}
 
 	writer.close();
