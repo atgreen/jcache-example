@@ -72,7 +72,7 @@ public class MessageServlet extends HttpServlet {
 	    .realm("ApplicationRealm")
 	    .username(USERNAME)
 	    .password(PASSWORD)
-	    .serverName("caching-service")
+	    .serverName("cache-service")
 	    .ssl()
 	    .enable()
 	    .trustStorePath("/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt")
