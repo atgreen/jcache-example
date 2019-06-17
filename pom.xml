@@ -62,6 +62,12 @@
 	    <artifactId>infinispan-remote</artifactId>
 	    <version>9.4.13.Final-redhat-00002</version>
 	</dependency>
+
+	<dependency>
+	  <groupId>javax.cache</groupId>
+          <artifactId>cache-api</artifactId>
+	  <version>1.0.0</version>
+	</dependency>
 	
     </dependencies>
 
