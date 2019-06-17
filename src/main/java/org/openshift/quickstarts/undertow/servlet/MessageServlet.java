@@ -46,7 +46,7 @@ public class MessageServlet extends HttpServlet {
     private String message;
     //    RemoteCache<String, String> cache;
     Cache<String, String> cache;
-    RemoteCacheManager remoteCacheManager;
+    javax.cache.CacheManager remoteCacheManager;
 	
     private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service";
     private static final String USERNAME = "admin";
