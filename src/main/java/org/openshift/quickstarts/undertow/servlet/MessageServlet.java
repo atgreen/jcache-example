@@ -54,10 +54,10 @@ public class MessageServlet extends HttpServlet {
 
 	CachingProvider cachingProvider = Caching.getCachingProvider();
 	CacheManager cacheManager = cachingProvider.getCacheManager();
-	MutableConfiguration<String, String> config
+	MutableConfiguration<String, String> mconfig
 	    = new MutableConfiguration<>();
 	cache = cacheManager
-	    .createCache("default", config);
+	    .createCache("default", mconfig);
     }
 
     @Override
@@ -77,11 +77,11 @@ public class MessageServlet extends HttpServlet {
 	    cache.put(paramName, req.getParameter(paramName));
 	}        
 	
-        Iterator iterator = cache.iterator();
-	while(iterator.hasNext()) {
-	    Map.Entry<String, String> entry = iterator.next();
-	    writer.write(entry.getKey() + ":" + entry.getValue());
-	}
+        // Iterator iterator = cache.iterator();
+	// while(iterator.hasNext()) {
+	//     Map.Entry<String, String> entry = iterator.next();
+	//     writer.write(entry.getKey() + ":" + entry.getValue());
+	// }
 
 	writer.close();
     }
