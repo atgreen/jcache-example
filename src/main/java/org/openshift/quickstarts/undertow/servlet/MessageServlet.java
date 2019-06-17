@@ -31,9 +31,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.cache.Cache;
 
-// import org.infinispan.client.hotrod.RemoteCache;
+import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
+import org.infinispan.client.hotrod.configuration.Configuration;
 
 /**
  * @author Stuart Douglas
@@ -89,6 +90,7 @@ public class MessageServlet extends HttpServlet {
 	while(params.hasMoreElements()){
 	    String paramName = params.nextElement();
 	    writer.write("Parameter Name - "+paramName+", Value - "+req.getParameter(paramName)+"\n");
+	    cache.put(paramName, req.getParameter(paramName));
 	}        
 	writer.close();
     }
