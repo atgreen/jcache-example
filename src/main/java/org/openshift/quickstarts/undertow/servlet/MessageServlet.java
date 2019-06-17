@@ -77,11 +77,11 @@ public class MessageServlet extends HttpServlet {
 	    cache.put(paramName, req.getParameter(paramName));
 	}        
 	
-        // Iterator iterator = cache.iterator();
-	// while(iterator.hasNext()) {
-	//     Map.Entry<String, String> entry = iterator.next();
-	//     writer.write(entry.getKey() + ":" + entry.getValue());
-	// }
+	Iterator<Cache.Entry<String, String>> iterator = cache.iterator();
+	while(iterator.hasNext()) {
+	    Cache.Entry<String, String> entry = iterator.next();
+	    writer.write(entry.getKey() + ":" + entry.getValue());
+	}
 
 	writer.close();
     }
