@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.cache.Cache;
+import javax.cache.*;
 
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -45,7 +45,7 @@ public class MessageServlet extends HttpServlet {
 
     private String message;
     //    RemoteCache<String, String> cache;
-    Cache cache;
+    Cache<String, String> cache;
     RemoteCacheManager remoteCacheManager;
 	
     private static final String HOT_ROD_ENDPOINT_SERVICE = "cache-service";
