@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.cache.*; 
 import javax.cache.spi.*; 
+import javax.cache.configuration.*; 
 
 /**
  * @author Stuart Douglas
